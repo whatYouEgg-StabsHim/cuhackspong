@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Medium sample page</title>
+	<style>
+		.paddle {
+		position: absolute; 
+		width: 100px; 
+		height: 100px; 
+		background: #F00;
+		}
+	</style>
+</head>
+<body>
+
+	<div class="paddle" style="margin-left: 50px;" id="objec"></div>
+	<div class="paddle" style="margin-left: calc(100% - 150px);" id="enemy"></div>
+
+<script>
+	document.onkeydown = detectKey;
+function detectKey(e) {
+    var posLeft = document.getElementById('objec').offsetLeft;
+    var posTop = document.getElementById('objec').offsetTop;
+	e = e || window.event;
+	send(posLeft, posTop);
+    if (e.keyCode == '38') {
+		// up arrow
+        document.getElementById('objec').style.marginTop  = (posTop-15)+"px";
+    }
+    if (e.keyCode == '40') {
+		// down arrow
+        document.getElementById('objec').style.marginTop  = (posTop+5)+"px";
+    }/*
+    if (e.keyCode == '37') {
+	   // left arrow
+        document.getElementById('objec').style.marginLeft  = (posLeft-15)+"px";
+    }
+    if (e.keyCode == '39') {
+	   // right arrow
+        document.getElementById('objec').style.marginLeft  = (posLeft+5)+"px";
+	}*/
+}
+
+	function send(posLeft, posTop) {
+	let o=document.getElementById("outputt");
+
+	let xhr = new XMLHttpRequest();
+	
+	xhr.open("POST", "homepage.go", true);
+
+	xhr.setRequestHeader("Content-Type", "application/json");
+
+	xhr.onreadystatechange = function () {
+		if (xhr.readystate === 4 && xhr.status === 200) {
+			o.innerHTML = this.responseText;
+		}
+	};
+	
+	var data = JSON.stringify(posTop.toString());
+
+	xhr.send(data);
+	}
+</script>
+</body>
+</html>
