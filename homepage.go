@@ -13,7 +13,7 @@ func main() {
 		port = "5000"
 	}
 
-	f, _ := os.Create("C:/Users/calvi/Downloads/go/golangserver.log")
+	f, _ := os.Create("golangserver.log")
 	defer f.Close()
 	log.SetOutput(f)
 
